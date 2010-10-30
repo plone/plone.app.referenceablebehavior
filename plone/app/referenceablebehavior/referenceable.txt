@@ -1,0 +1,50 @@
+Referenceable behavior
+======================
+
+Archetypes base classes are Referenceable. To be able to link
+dexterity content types from archetypes content types you need
+to activate that behavior
+
+So first lets create a new dexterity content type
+
+    >>> from plone.dexterity.fti import DexterityFTI
+    >>> fti = DexterityFTI('referenceable_type')
+    >>> fti.behaviors = ('plone.app.dexterity.behaviors.metadata.IDublinCore',
+    ...                  'plone.app.referenceablebehavior')
+    >>> self.portal.portal_types._setObject('referenceable_type', fti)
+    'referenceable_type'
+    >>> schema = fti.lookupSchema()
+
+If we access the site as an admin TTW::
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> browser = Browser()
+    >>> browser.handleErrors = False
+    >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
+    >>> browser.addHeader('Authorization', 'Basic root:secret')
+
+We can see this type in the addable types at the root of the site::
+
+    >>> browser.open("http://nohost/plone/folder_factories")
+    >>> "referenceable_type" in browser.contents
+    True
+    >>> browser.getControl("referenceable_type").click()
+    >>> browser.getControl("Add").click()
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "My Object"
+    >>> browser.getControl(name="form.widgets.title").value = "My Object"
+    >>> browser.getControl(name="form.widgets.IDublinCore.description").value = "Lorem ipsum"
+    >>> browser.getControl(name="form.buttons.save").click()
+    >>> browser.url
+    'http://nohost/plone/referenceable_type/view'
+
+Now lets check that we have uuid stuff
+
+    >>> item = self.portal.referenceable_type
+    >>> from plone.uuid.interfaces import IAttributeUUID
+    >>> IAttributeUUID.providedBy(item)
+    True
+    >>> from plone.uuid.interfaces import ATTRIBUTE_NAME
+    >>> uuid = getattr(item, ATTRIBUTE_NAME, None)
+    >>> uuid is not None
+    True
+    
