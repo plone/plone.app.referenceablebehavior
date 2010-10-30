@@ -4,6 +4,9 @@ Changelog
 0.1dev (unreleased)
 ----------------------
 
+- Add "locales" directory and french translation for the behavior.
+  [sylvainb]
+
 - Add referenceable behavior to dexterity
   [toutpt]
 

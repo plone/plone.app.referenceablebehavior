@@ -19,7 +19,7 @@ In your *profiles/default/types/YOURTYPE.xml* add the behavior::
      
      <!-- enabled behaviors -->
      <property name="behaviors">
-         <element value="plone.app.referenceablebehavior.IReferenceable" />
+         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" />
      </property>
 
     </object>
