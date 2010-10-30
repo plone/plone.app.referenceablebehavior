@@ -4,5 +4,8 @@ Changelog
 0.1dev (unreleased)
 ----------------------
 
+- Add referenceable behavior to dexterity
+  [toutpt]
+
 - Initial release
   [sylvainb]
