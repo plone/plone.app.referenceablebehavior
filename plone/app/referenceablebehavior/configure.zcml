@@ -9,10 +9,12 @@
     <include package="plone.behavior" file="meta.zcml" />
     <include package="plone.directives.form" file="meta.zcml" />
     <include package="plone.directives.form" />
+
     <plone:behavior
         title="Referenceable"
         description="Adds the ability to reference this by others"
         provides=".referenceable.IReferenceable"
+        marker=".referenceable.IReferenceable"
         for="plone.dexterity.interfaces.IDexterityContent"
         />
 

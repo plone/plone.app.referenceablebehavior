@@ -10,7 +10,7 @@ So first lets create a new dexterity content type
     >>> from plone.dexterity.fti import DexterityFTI
     >>> fti = DexterityFTI('referenceable_type')
     >>> fti.behaviors = ('plone.app.dexterity.behaviors.metadata.IDublinCore',
-    ...                  'plone.app.referenceablebehavior')
+    ...                  'plone.app.referenceablebehavior.referenceable.IReferenceable')
     >>> self.portal.portal_types._setObject('referenceable_type', fti)
     'referenceable_type'
     >>> schema = fti.lookupSchema()
@@ -40,6 +40,9 @@ We can see this type in the addable types at the root of the site::
 Now lets check that we have uuid stuff
 
     >>> item = self.portal.referenceable_type
+    >>> from plone.app.referenceablebehavior.referenceable import IReferenceable
+    >>> IReferenceable.providedBy(item)
+    True
     >>> from plone.uuid.interfaces import IAttributeUUID
     >>> IAttributeUUID.providedBy(item)
     True
