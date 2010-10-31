@@ -16,6 +16,10 @@ def test_suite():
             'referenceable.txt', package='plone.app.referenceablebehavior',
             test_class=ReferenceableFunctionalTestCase),
 
+        ztc.FunctionalDocFileSuite(
+            'uidcatalog.txt', package='plone.app.referenceablebehavior',
+            test_class=ReferenceableFunctionalTestCase),
+
         ])
 
 if __name__ == '__main__':

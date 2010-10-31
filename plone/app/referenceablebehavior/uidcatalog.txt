@@ -1,18 +1,14 @@
-UID behavior
-============
-
-Archetypes base classes are Referenceable. To be able to link
-dexterity content types from archetypes content types you need
-to activate that behavior
+Indexation in UIDCatalog
+========================
 
 So first lets create a new dexterity content type
 
     >>> from plone.dexterity.fti import DexterityFTI
-    >>> fti = DexterityFTI('uid_type')
+    >>> fti = DexterityFTI('referenceable_type')
     >>> fti.behaviors = ('plone.app.dexterity.behaviors.metadata.IDublinCore',
-    ...                  'plone.uuid.interfaces.IAttributeUUID')
-    >>> self.portal.portal_types._setObject('uid_type', fti)
-    'uid_type'
+    ...                  'plone.app.referenceablebehavior.referenceable.IReferenceable')
+    >>> self.portal.portal_types._setObject('referenceable_type', fti)
+    'referenceable_type'
     >>> schema = fti.lookupSchema()
 
 If we access the site as an admin TTW::
@@ -26,24 +22,30 @@ If we access the site as an admin TTW::
 We can see this type in the addable types at the root of the site::
 
     >>> browser.open("http://nohost/plone/folder_factories")
-    >>> "uid_type" in browser.contents
+    >>> "referenceable_type" in browser.contents
     True
-    >>> browser.getControl("uid_type").click()
+    >>> browser.getControl("referenceable_type").click()
     >>> browser.getControl("Add").click()
     >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "My Object"
     >>> browser.getControl(name="form.widgets.title").value = "My Object"
     >>> browser.getControl(name="form.widgets.IDublinCore.description").value = "Lorem ipsum"
     >>> browser.getControl(name="form.buttons.save").click()
     >>> browser.url
-    'http://nohost/plone/uid_type/view'
+    'http://nohost/plone/referenceable_type/view'
 
-Now lets check that we have uuid stuff
+First check it is indexed in the uid_catalog
 
-    >>> item = self.portal.uid_type
-    >>> from plone.uuid.interfaces import IAttributeUUID
-    >>> IAttributeUUID.providedBy(item)
-    True
-    >>> from plone.uuid.interfaces import ATTRIBUTE_NAME
-    >>> uuid = getattr(item, ATTRIBUTE_NAME, None)
-    >>> uuid is not None
-    True
+    >>> uid_catalog = self.portal.uid_catalog
+    >>> results = uid_catalog(id='referenceable_type')
+    >>> len(results)
+    1
+    >>> results[0].Title
+    'My Object'
+
+Now delete the item
+
+    >>> browser.getLink(id='delete').click()
+    >>> browser.getControl('Delete').click()
+    >>> results = uid_catalog(id='referenceable_type')
+    >>> len(results)
+    0
