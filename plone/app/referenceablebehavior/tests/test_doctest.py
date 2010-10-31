@@ -9,6 +9,10 @@ def test_suite():
 
         # Functionnal tests that use Dexterity
         ztc.FunctionalDocFileSuite(
+            'uid.txt', package='plone.app.referenceablebehavior',
+            test_class=ReferenceableFunctionalTestCase),
+
+        ztc.FunctionalDocFileSuite(
             'referenceable.txt', package='plone.app.referenceablebehavior',
             test_class=ReferenceableFunctionalTestCase),
 
