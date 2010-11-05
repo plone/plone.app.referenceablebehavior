@@ -35,17 +35,25 @@ We can see this type in the addable types at the root of the site::
 
 First check it is indexed in the uid_catalog
 
+    >>> from plone.uuid.interfaces import IUUID
+    >>> uuid = IUUID(portal.referenceable_type)
     >>> uid_catalog = self.portal.uid_catalog
-    >>> results = uid_catalog(id='referenceable_type')
+    >>> results = uid_catalog(UID=uuid)
     >>> len(results)
     1
     >>> results[0].Title
     'My Object'
 
-Now delete the item
+We have an issue at the moment on delete action. Those tests fails
+
+    >>> browser.getLink(id='delete').click()
+    >>> browser.getControl('Cancel').click()
+    >>> results = uid_catalog(UID=uuid)
+    >>> len(results)
+    1
 
     >>> browser.getLink(id='delete').click()
     >>> browser.getControl('Delete').click()
-    >>> results = uid_catalog(id='referenceable_type')
+    >>> results = uid_catalog(UID=uuid)
     >>> len(results)
     0

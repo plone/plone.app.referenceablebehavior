@@ -1,4 +1,12 @@
 from Products.CMFCore.utils import getToolByName
+from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
+from plone.app.referenceablebehavior.referenceable import IReferenceable
+from plone.uuid.interfaces import IUUID
+from plone.indexer.decorator import indexer
+
+@indexer(IReferenceable, IUIDCatalog)
+def UID(obj):
+    return IUUID(obj, None)
 
 def added_handler(obj, event):
     """Index the object inside uid_catalog"""
@@ -15,8 +23,4 @@ def modified_handler(obj, event):
 def removed_handler(obj, event):
     """Remove object from uid_catalog"""
     uid_catalog = getToolByName(obj, 'uid_catalog')
-    #TODO: ObjectRemoed event is triggered to much
-#    try:
-#        uid_catalog.uncatalog_object(obj)
-#    except:
-#        pass
+    uid_catalog.uncatalog_object(obj)

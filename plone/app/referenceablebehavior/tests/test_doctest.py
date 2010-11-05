@@ -7,11 +7,6 @@ from plone.app.referenceablebehavior.tests.base import ReferenceableFunctionalTe
 def test_suite():
     return unittest.TestSuite([
 
-        # Functionnal tests that use Dexterity
-        ztc.FunctionalDocFileSuite(
-            'uid.txt', package='plone.app.referenceablebehavior',
-            test_class=ReferenceableFunctionalTestCase),
-
         ztc.FunctionalDocFileSuite(
             'referenceable.txt', package='plone.app.referenceablebehavior',
             test_class=ReferenceableFunctionalTestCase),

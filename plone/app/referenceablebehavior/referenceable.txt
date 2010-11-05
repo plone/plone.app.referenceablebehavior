@@ -50,4 +50,25 @@ Now lets check that we have uuid stuff
     >>> uuid = getattr(item, ATTRIBUTE_NAME, None)
     >>> uuid is not None
     True
-    
+
+Now create an archetype content object
+
+    >>> browser.open("http://nohost/plone/folder_factories")
+    >>> browser.getControl("Page").click()
+    >>> browser.getControl("Add").click()
+    >>> browser.getControl('Title').value= "archetype page"
+    >>> browser.getControl('Save').click()
+
+Now add the dexterity content as reference in archetype page
+
+It seems there is no way to use related items with functionnal tests
+###    >>> browser.getLink('Edit').click()
+
+    >>> archetypes = getattr(portal,'archetype-page')
+    >>> dexterity = getattr(portal,'referenceable_type')
+    >>> from plone.uuid.interfaces import IUUID
+    >>> uuid = IUUID(dexterity)
+    >>> archetypes.setRelatedItems([uuid])
+    >>> archetypes.reindexObject()
+    >>> archetypes.getRelatedItems()
+    [<Item at /plone/referenceable_type>]

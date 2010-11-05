@@ -15,13 +15,6 @@
     <include package="plone.directives.form" />
 
     <plone:behavior
-        title="UID Aware"
-        description="Adds the ability to be indentified"
-        provides="plone.uuid.interfaces.IAttributeUUID"
-        marker="plone.uuid.interfaces.IAttributeUUID"
-        for="plone.dexterity.interfaces.IDexterityContent"
-        />
-    <plone:behavior
         title="Referenceable"
         description="Adds the ability to be referenced by others content elements"
         provides=".referenceable.IReferenceable"
@@ -29,12 +22,16 @@
         for="plone.dexterity.interfaces.IDexterityContent"
         />
 
-    <!-- Install indexer -->
-    <adapter factory=".uid.indexer" name="UID" />
-    <adapter factory=".referenceable.uidcatalog_indexer" name="UID" />
-    <adapter factory=".referenceable.catalogtool_indexer" name="UID" />
+    <!-- Install uid_catalog related components -->
 
-    <!-- Register handler to manage uid_catalog -->
+    <adapter factory=".uidcatalog.UID" name="UID" />
+    <adapter
+        for=".referenceable.IReferenceable
+             Products.Archetypes.interfaces.referenceengine.IUIDCatalog"
+        factory="plone.indexer.wrapper.IndexableObjectWrapper"
+        provides="plone.indexer.interfaces.IIndexableObject"
+        />
+
     <subscriber
         for=".referenceable.IReferenceable
              zope.lifecycleevent.interfaces.IObjectAddedEvent"
@@ -50,11 +47,6 @@
              zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler=".uidcatalog.removed_handler"
         />
-    <adapter
-        for=".referenceable.IReferenceable
-             Products.Archetypes.interfaces.referenceengine.IUIDCatalog"
-        factory="plone.indexer.wrapper.IndexableObjectWrapper"
-        provides="plone.indexer.interfaces.IIndexableObject"
-        />
+
 
 </configure>
