@@ -44,13 +44,17 @@ First check it is indexed in the uid_catalog
     >>> results[0].Title
     'My Object'
 
-We have an issue at the moment on delete action. Those tests fails
+If we try to delete, there is a confirmation screen. If we cancel, the item is
+not deleted and the item remains catalogued.
 
     >>> browser.getLink(id='delete').click()
     >>> browser.getControl('Cancel').click()
     >>> results = uid_catalog(UID=uuid)
     >>> len(results)
     1
+
+However, if we confirm the deletion, the item is removed and the UID is no
+longer catalogued.
 
     >>> browser.getLink(id='delete').click()
     >>> browser.getControl('Delete').click()

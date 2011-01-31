@@ -23,4 +23,5 @@ def modified_handler(obj, event):
 def removed_handler(obj, event):
     """Remove object from uid_catalog"""
     uid_catalog = getToolByName(obj, 'uid_catalog')
-    uid_catalog.uncatalog_object(obj)
+    path = '/'.join(obj.getPhysicalPath())
+    uid_catalog.uncatalog_object(path)
