@@ -53,9 +53,7 @@ Now lets check that we have uuid stuff
 
 Now create an archetype content object
 
-    >>> browser.open("http://nohost/plone/folder_factories")
-    >>> browser.getControl("Page").click()
-    >>> browser.getControl("Add").click()
+    >>> browser.open("http://nohost/plone/createObject?type_name=Document")
     >>> browser.getControl('Title').value= "archetype page"
     >>> browser.getControl('Save').click()
 
