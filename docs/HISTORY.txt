@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.1dev (unreleased)
-----------------------
+0.1 (2010-02-11)
+----------------
 
 - Add "locales" directory and french translation for the behavior.
   [sylvainb]
