@@ -5,6 +5,9 @@ The "IReferenceable" behavior is used for enabling UUID (plone.app.uuid) support
 for dexterity contents, like in archetypes content types. This allow for example
 references between archetypes and dexterity content types.
 
+Note: It can't work with Plone==4.0 because it is based on plone.uuid integration in 
+CMF. It is compatible with Plone>=4.1
+
 Usage
 -----
 
