@@ -1,1 +1,1 @@
-from plone.app.referenceablebehavior.uid import IReferenceable
+from plone.app.referenceablebehavior.referenceable import IReferenceable
