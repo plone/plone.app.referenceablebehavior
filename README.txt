@@ -11,7 +11,7 @@ CMF. It is compatible with Plone>=4.1
 Usage
 -----
 
-Just use the behavior "plone.app.referenceablebehavior.IReferenceable" in
+Just use the behavior "plone.app.referenceablebehavior.referenceable.IReferenceable" in
 your dexterity content type.
 
 In your *profiles/default/types/YOURTYPE.xml* add the behavior::
