@@ -4,6 +4,10 @@ Changelog
 0.1 (2010-02-11)
 ----------------
 
+- Use getSite() hook in event handlers, since the object may be
+  not acquisiton wrapped in certain circumstances.
+  [jbaumann]
+
 - Add "locales" directory and french translation for the behavior.
   [sylvainb]
 
