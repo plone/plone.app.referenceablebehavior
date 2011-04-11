@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.1 (2010-02-11)
+0.1 (2011-02-11)
 ----------------
 
 - Use getSite() hook in event handlers, since the object may be
