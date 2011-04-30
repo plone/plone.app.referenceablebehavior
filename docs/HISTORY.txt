@@ -1,12 +1,18 @@
 Changelog
 =========
 
-0.1 (2011-02-11)
+0.2 (2011-04-30)
 ----------------
 
 - Use getSite() hook in event handlers, since the object may be
-  not acquisiton wrapped in certain circumstances.
+  not acquisition-wrapped in certain circumstances.
   [jbaumann]
+
+- Fix broken IReferenceable import.
+  [daftdog]
+
+0.1 (2011-02-11)
+----------------
 
 - Add "locales" directory and french translation for the behavior.
   [sylvainb]
