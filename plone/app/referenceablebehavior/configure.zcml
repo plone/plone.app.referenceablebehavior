@@ -25,6 +25,9 @@
     <!-- Install uid_catalog related components -->
 
     <adapter factory=".uidcatalog.UID" name="UID" />
+    <adapter factory=".referenceable.uuid_for_adapter"
+             provides="plone.uuid.interfaces.IUUID" />
+
     <adapter
         for=".referenceable.IReferenceable
              Products.Archetypes.interfaces.referenceengine.IUIDCatalog"
@@ -48,5 +51,7 @@
         handler=".uidcatalog.removed_handler"
         />
 
+    <!-- Archetypes IReferenceable implementation -->
+    <adapter factory=".referenceable.ATReferenceable" />
 
 </configure>

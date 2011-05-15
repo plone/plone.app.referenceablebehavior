@@ -13,7 +13,6 @@ class ReferenceableLayer(dexterity_layer.DexterityLayer):
 
     @classmethod
     def setUp(cls):
-        dexterity_layer.DexterityLayer.setUp()
         metaconfigure.debug_mode = True
         import plone.app.referenceablebehavior
         zcml.load_config('configure.zcml', plone.app.referenceablebehavior)
