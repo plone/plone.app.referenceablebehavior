@@ -4,6 +4,9 @@ Changelog
 0.3 (unreleased)
 ----------------
 
+- Try obj first in event handlers, fall back to getSite(). When a site is being
+  deleted getSite() will return None so isn't useful.
+  [lentinj]
 
 0.2 (2011-04-30)
 ----------------

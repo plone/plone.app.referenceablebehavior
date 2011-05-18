@@ -1,3 +1,4 @@
+from Acquisition.interfaces import IAcquirer
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
 from plone.app.referenceablebehavior.referenceable import IReferenceable
@@ -10,20 +11,28 @@ from zope.app.component.hooks import getSite
 def UID(obj):
     return IUUID(obj, None)
 
+def _get_catalog(obj):
+    if IAcquirer.providedBy(obj):
+        return getToolByName(obj, 'uid_catalog')
+    site = getSite()
+    if IAcquirer.providedBy(site):
+        return getToolByName(site, 'uid_catalog')
+    raise ValueError('Cannot find suitable context')
+
 def added_handler(obj, event):
     """Index the object inside uid_catalog"""
-    uid_catalog = getToolByName(getSite(), 'uid_catalog')
+    uid_catalog = _get_catalog(obj)
     path = '/'.join(obj.getPhysicalPath())
     uid_catalog.catalog_object(obj, path)
 
 def modified_handler(obj, event):
     """Reindex object in uid_catalog"""
-    uid_catalog = getToolByName(getSite(), 'uid_catalog')
+    uid_catalog = _get_catalog(obj)
     path = '/'.join(obj.getPhysicalPath())
     uid_catalog.catalog_object(obj, path)
 
 def removed_handler(obj, event):
     """Remove object from uid_catalog"""
-    uid_catalog = getToolByName(getSite(), 'uid_catalog')
+    uid_catalog = _get_catalog(obj)
     path = '/'.join(obj.getPhysicalPath())
     uid_catalog.uncatalog_object(path)
