@@ -1,4 +1,3 @@
-from Acquisition.interfaces import IAcquirer
 from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
 from plone.app.referenceablebehavior.referenceable import IReferenceable
@@ -12,12 +11,10 @@ def UID(obj):
     return IUUID(obj, None)
 
 def _get_catalog(obj):
-    if IAcquirer.providedBy(obj):
+    try:
         return getToolByName(obj, 'uid_catalog')
-    site = getSite()
-    if IAcquirer.providedBy(site):
-        return getToolByName(site, 'uid_catalog')
-    raise ValueError('Cannot find suitable context')
+    except AttributeError:
+        return getToolByName(getSite(), 'uid_catalog')
 
 def added_handler(obj, event):
     """Index the object inside uid_catalog"""
