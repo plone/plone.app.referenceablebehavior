@@ -30,7 +30,8 @@ setup(name='plone.app.referenceablebehavior',
           'plone.dexterity',
           'plone.directives.form',
           'plone.indexer',
-          'plone.uuid'
+          'plone.uuid',
+          'Products.Archetypes',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
