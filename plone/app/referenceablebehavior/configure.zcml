@@ -44,6 +44,11 @@
         />
     <subscriber
         for=".referenceable.IReferenceable
+             zope.lifecycleevent.interfaces.IObjectMovedEvent"
+        handler=".uidcatalog.moved_handler"
+        />
+    <subscriber
+        for=".referenceable.IReferenceable
              zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler=".uidcatalog.removed_handler"
         />

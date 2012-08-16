@@ -44,9 +44,43 @@ First check it is indexed in the uid_catalog
     >>> results[0].Title
     'My Object'
 
+Now let's see that if we modified the object, the catalog is updated
+
+    >>> browser.getLink('Edit').click()
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "My Modified Object"
+    >>> browser.getControl(name="form.widgets.title").value = "My Modified Object"
+    >>> browser.getControl(name="form.buttons.save").click()
+    >>> 'Changes saved' in browser.contents
+    True
+
+    >>> results = uid_catalog(UID=uuid)
+    >>> results[0].Title
+    'My Modified Object'
+
+If we move the object, the catalog gets updated
+
+    >>> results[0].getPath()
+    '/plone/referenceable_type'
+    
+    >>> browser.getLink("Cut").click()
+
+    >>> browser.open("http://nohost/plone")
+    >>> browser.getLink("Add new").click()
+    >>> browser.getControl("Folder").selected = True
+    >>> browser.getControl("Add").click()
+    >>> browser.getControl("Title").value = "My Folder"
+    >>> browser.getControl("Save").click()
+    >>> browser.getLink("Paste").click()
+
+    >>> results = uid_catalog(UID=uuid)
+    >>> results[0].getPath()
+    '/plone/my-folder/referenceable_type'
+
 If we try to delete, there is a confirmation screen. If we cancel, the item is
 not deleted and the item remains catalogued.
 
+    >>> browser.open("http://nohost/plone/my-folder")
+    >>> browser.getLink("My Modified Object").click()
     >>> browser.getLink(id='delete').click()
     >>> browser.getControl('Cancel').click()
     >>> results = uid_catalog(UID=uuid)

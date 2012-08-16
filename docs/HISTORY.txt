@@ -7,6 +7,11 @@ Changelog
 - Declare the dependency on Archetypes.
   [davisagli]
 
+- Handle IObjectMovedEvent events for referenceable types to avoid 
+  "unsuccessfully attempted to uncatalog an object" errors when removing
+  an object previously moved.
+  [frapell]
+
 0.3 (2011-05-18)
 ----------------
 
