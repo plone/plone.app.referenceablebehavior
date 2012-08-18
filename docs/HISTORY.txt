@@ -1,10 +1,11 @@
 Changelog
 =========
 
-0.5 (unreleased)
-----------------
+0.4.1 (2012-08-18)
+------------------
 
-- Nothing changed yet.
+- Fix packaging error.
+  [esteele]
 
 
 0.4 (2012-08-18)
