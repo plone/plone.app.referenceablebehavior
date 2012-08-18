@@ -1,6 +1,5 @@
-include *.txt
-
+include *
 recursive-include docs *
-recursive-include plone/app/referenceablebehavior/locales *
+recursive-include plone *
 
 global-exclude *.pyc
