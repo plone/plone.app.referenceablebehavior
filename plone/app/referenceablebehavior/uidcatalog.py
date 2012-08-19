@@ -36,12 +36,16 @@ def moved_handler(obj, event):
     # When path has changed, the object cannot be found, and we end up with
     # old and invalid uids. 
     uid_catalog = _get_catalog(obj)
-    results = uid_catalog(UID=obj.UID())
-    if len(results) > 0:
-        old_obj = results[0]
-        uid_catalog.uncatalog_object(old_obj.getPath())
-        path = '/'.join(obj.getPhysicalPath())
-        uid_catalog.catalog_object(obj, path)
+    uid = IUUID(obj.aq_base, None)
+
+    if uid:
+        results = uid_catalog(UID=uid)
+        
+        if len(results) > 0:
+            old_obj = results[0]
+            uid_catalog.uncatalog_object(old_obj.getPath())
+            path = '/'.join(obj.getPhysicalPath())
+            uid_catalog.catalog_object(obj, path)
 
 def removed_handler(obj, event):
     """Remove object from uid_catalog"""

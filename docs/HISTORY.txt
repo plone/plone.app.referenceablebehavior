@@ -4,7 +4,8 @@ Changelog
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Get object's UID in a more proper way.
+  [frapell] 
 
 
 0.4.1 (2012-08-18)
