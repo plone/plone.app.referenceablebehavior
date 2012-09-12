@@ -53,5 +53,19 @@
         handler=".uidcatalog.removed_handler"
         />
 
+    <subscriber
+        for=".referenceable.IReferenceable
+             OFS.interfaces.IObjectWillBeRemovedEvent"
+        handler=".subscribers.deleteReferences"
+        />
+
+
+    <!-- Archetypes IReferenceable implementation -->
+    <adapter factory=".referenceable.ATReferenceable" />
+
+
+    <adapter factory=".referenceable.uuid_for_adapter"
+             provides="plone.uuid.interfaces.IUUID" />
+
 
 </configure>
