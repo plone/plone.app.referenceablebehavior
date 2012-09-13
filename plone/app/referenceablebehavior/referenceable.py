@@ -7,6 +7,7 @@ from Products.Archetypes import config
 from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
 from Products.Archetypes.interfaces import referenceable
 from Products.Archetypes.ReferenceEngine import Reference as BaseReference
+from Products.Archetypes.utils import getRelURL
 from Products.CMFCore.utils import getToolByName
 from OFS.Folder import Folder
 
@@ -28,6 +29,18 @@ class Reference(BaseReference):
         if not referenceable.IReferenceable.providedBy(obj):
             obj = referenceable.IReferenceable(obj)
         return obj
+
+    def manage_afterAdd(self, item, container):
+        ct = getToolByName(container, config.REFERENCE_CATALOG, None)
+        self._register(reference_manager=ct)
+        self._updateCatalog(container)
+        self._referenceApply('manage_afterAdd', item, container)
+        # when copying a full site containe is the container of the plone site
+        # and item is the plone site (at least for objects in portal root)
+        base = container
+        rc = getToolByName(container, config.REFERENCE_CATALOG)
+        url = getRelURL(base, self.getPhysicalPath())
+        rc.catalog_object(self, url)
 
 
 class ATReferenceable(object):
@@ -82,7 +95,7 @@ class ATReferenceable(object):
 
     def getBRefs(self, relationship=None, targetObject=None):
         # get all the back referenced objects for this object
-        brains = self.tool.getBackReferences(self.context, relationship,
+        brains = self.tool.getBackReferences(self, relationship,
                                              targetObject=targetObject, objects=False)
         if brains:
             return [self._optimizedGetObject(b.sourceUID) for b in brains]
@@ -94,14 +107,14 @@ class ATReferenceable(object):
 
     def getReferenceImpl(self, relationship=None, targetObject=None):
         # get all the reference objects for this object
-        refs = self.tool.getReferences(self.context, relationship, targetObject=targetObject)
+        refs = self.tool.getReferences(self, relationship, targetObject=targetObject)
         if refs:
             return refs
         return []
 
     def getBackReferenceImpl(self, relationship=None, targetObject=None):
         # get all the back reference objects for this object
-        refs = self.tool.getBackReferences(self.context, relationship, targetObject=targetObject)
+        refs = self.tool.getBackReferences(self, relationship, targetObject=targetObject)
         if refs:
             return refs
         return []
