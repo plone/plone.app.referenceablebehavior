@@ -20,13 +20,13 @@ class Reference(BaseReference):
 
     def getSourceObject(self):
         obj = self._optimizedGetObject(self.sourceUID)
-        if not referenceable.IReferenceable.providedBy(obj):
+        if obj and not referenceable.IReferenceable.providedBy(obj):
             obj = referenceable.IReferenceable(obj)
         return obj
 
     def getTargetObject(self):
         obj = self._optimizedGetObject(self.targetUID)
-        if not referenceable.IReferenceable.providedBy(obj):
+        if obj and not referenceable.IReferenceable.providedBy(obj):
             obj = referenceable.IReferenceable(obj)
         return obj
 

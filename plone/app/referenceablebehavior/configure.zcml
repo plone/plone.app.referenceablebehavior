@@ -18,7 +18,6 @@
         title="Referenceable"
         description="Adds the ability to be referenced by others content elements"
         provides=".referenceable.IReferenceable"
-        marker=".referenceable.IReferenceable"
         for="plone.dexterity.interfaces.IDexterityContent"
         />
 
