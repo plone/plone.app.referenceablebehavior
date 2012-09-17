@@ -27,7 +27,7 @@ setup(name='plone.app.referenceablebehavior',
       install_requires=[
           'setuptools',
           'plone.behavior',
-          'plone.dexterity',
+          'plone.dexterity >= 1.1',
           'plone.directives.form',
           'plone.indexer',
           'plone.uuid',
