@@ -4,7 +4,8 @@ Changelog
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Import getSite from zope.component to avoid dependency on zope.app.component.
+  [hvelarde]
 
 
 0.4.2 (2012-08-19)

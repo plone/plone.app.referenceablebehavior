@@ -3,7 +3,7 @@ from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
 from plone.app.referenceablebehavior.referenceable import IReferenceable
 from plone.uuid.interfaces import IUUID
 from plone.indexer.decorator import indexer
-from zope.app.component.hooks import getSite
+from zope.component.hooks import getSite
 
 
 @indexer(IReferenceable, IUIDCatalog)
