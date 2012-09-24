@@ -3,11 +3,12 @@ from plone.app.dexterity.tests import layer as dexterity_layer
 try:
     from Zope2.App import zcml
     from OFS import metaconfigure
-    zcml # pyflakes
+    zcml  # pyflakes
     metaconfigure
 except ImportError:
     from Products.Five import zcml
     from Products.Five import fiveconfigure as metaconfigure
+
 
 class ReferenceableLayer(dexterity_layer.DexterityLayer):
 

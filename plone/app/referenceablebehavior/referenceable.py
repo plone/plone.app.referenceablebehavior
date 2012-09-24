@@ -1,6 +1,5 @@
-from plone.uuid.interfaces import IAttributeUUID, IUUID
-from plone.indexer.decorator import indexer
-from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
+from plone.uuid.interfaces import IAttributeUUID
+
 
 class IReferenceable(IAttributeUUID):
     """Adds abilities to be referenced"""

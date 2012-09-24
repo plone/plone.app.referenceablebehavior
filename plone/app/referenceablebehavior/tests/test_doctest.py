@@ -4,6 +4,7 @@ from Testing import ZopeTestCase as ztc
 
 from plone.app.referenceablebehavior.tests.base import ReferenceableFunctionalTestCase
 
+
 def test_suite():
     return unittest.TestSuite([
 
