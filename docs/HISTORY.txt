@@ -4,6 +4,11 @@ Changelog
 0.5 (unreleased)
 ----------------
 
+- Add a more complete implementation of the IReferenceable interface from
+  Archetypes.  Dexterity content using this behavior is now adaptable to
+  IReferenceable rather than providing it directly.
+  [jpgimenez]
+
 - Import getSite from zope.component to avoid dependency on zope.app.component.
   [hvelarde]
 
