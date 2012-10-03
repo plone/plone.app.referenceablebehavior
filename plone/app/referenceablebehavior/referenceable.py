@@ -1,10 +1,8 @@
-from Acquisition import aq_base, aq_parent, aq_inner
+from Acquisition import aq_base
 from zope.component import adapts, adapter
 from zope.interface import implements, directlyProvides
 from plone.uuid.interfaces import IAttributeUUID, IUUID
-from plone.indexer.decorator import indexer
 from Products.Archetypes import config
-from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
 from Products.Archetypes.interfaces import referenceable
 from Products.Archetypes.ReferenceEngine import Reference as BaseReference
 from Products.Archetypes.utils import getRelURL
