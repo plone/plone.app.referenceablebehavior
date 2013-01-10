@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5 (unreleased)
+0.5 (2013-01-10)
 ----------------
 
 - Add a more complete implementation of the IReferenceable interface from
