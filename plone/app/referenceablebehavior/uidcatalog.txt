@@ -27,7 +27,6 @@ We can see this type in the addable types at the root of the site::
     >>> browser.getControl("referenceable_type").click()
     >>> browser.getControl("Add").click()
     >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "My Object"
-    >>> browser.getControl(name="form.widgets.title").value = "My Object"
     >>> browser.getControl(name="form.widgets.IDublinCore.description").value = "Lorem ipsum"
     >>> browser.getControl(name="form.buttons.save").click()
     >>> browser.url
@@ -48,7 +47,6 @@ Now let's see that if we modified the object, the catalog is updated
 
     >>> browser.getLink('Edit').click()
     >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "My Modified Object"
-    >>> browser.getControl(name="form.widgets.title").value = "My Modified Object"
     >>> browser.getControl(name="form.buttons.save").click()
     >>> 'Changes saved' in browser.contents
     True
@@ -81,7 +79,7 @@ not deleted and the item remains catalogued.
 
     >>> browser.open("http://nohost/plone/my-folder")
     >>> browser.getLink("My Modified Object").click()
-    >>> browser.getLink(id='delete').click()
+    >>> browser.getLink(url='http://nohost/plone/my-folder/referenceable_type/delete_confirmation').click()
     >>> browser.getControl('Cancel').click()
     >>> results = uid_catalog(UID=uuid)
     >>> len(results)
@@ -90,7 +88,7 @@ not deleted and the item remains catalogued.
 However, if we confirm the deletion, the item is removed and the UID is no
 longer catalogued.
 
-    >>> browser.getLink(id='delete').click()
+    >>> browser.getLink(url='http://nohost/plone/my-folder/referenceable_type/delete_confirmation').click()
     >>> browser.getControl('Delete').click()
     >>> results = uid_catalog(UID=uuid)
     >>> len(results)
