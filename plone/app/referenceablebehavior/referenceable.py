@@ -33,8 +33,6 @@ class Reference(BaseReference):
         self._register(reference_manager=ct)
         self._updateCatalog(container)
         self._referenceApply('manage_afterAdd', item, container)
-        # when copying a full site containe is the container of the plone site
-        # and item is the plone site (at least for objects in portal root)
         base = container
         rc = getToolByName(container, config.REFERENCE_CATALOG)
         url = getRelURL(base, self.getPhysicalPath())
