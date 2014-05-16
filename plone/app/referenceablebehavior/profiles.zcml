@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="plone">
+
+  <genericsetup:importStep
+      name="referenceablebehavior-various"
+      title="Referencebehavior setup"
+      description=""
+      handler="plone.app.referenceablebehavior.setuphandlers.setup_referenceablebehavior">
+      <depends name="toolset"/>
+  </genericsetup:importStep>
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Referenceable Behavior for DX"
+      directory="profiles/default"
+      description="Extension profile for plone.app.referenceablebehavior"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>
