@@ -1,8 +1,14 @@
 Changelog
 =========
 
-0.6.1 (unreleased)
+0.7.0 (2014-05-21)
 ------------------
+
+- Slowly reducing AT behaviors. This package still depends on
+  Archetypes but does not require its GS Profile to run.
+  There are two tools currently provided by AT that are now installed
+  with tis profile
+  [do3cc]
 
 - Removed unused references to plone.directives.form.
   [do3cc]
