@@ -4,7 +4,8 @@ Changelog
 0.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Removed unused references to plone.directives.form.
+  [do3cc]
 
 
 0.6 (2014-04-16)

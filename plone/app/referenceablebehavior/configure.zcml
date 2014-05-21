@@ -11,8 +11,6 @@
     <i18n:registerTranslations directory="locales" />
 
     <include package="plone.behavior" file="meta.zcml" />
-    <include package="plone.directives.form" file="meta.zcml" />
-    <include package="plone.directives.form" />
     <include file="profiles.zcml" />
 
     <plone:behavior
