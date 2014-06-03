@@ -6,7 +6,7 @@ from plone.uuid.interfaces import IUUID
 from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
 
 class ReferenceableTests(unittest.TestCase):
-    
+
     layer = PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
 
     def setUp(self):
@@ -29,10 +29,10 @@ class ReferenceableTests(unittest.TestCase):
         adapter1 = referenceable.IReferenceable(doc1)
         adapter2 = referenceable.IReferenceable(doc2)
         adapter3 = referenceable.IReferenceable(doc3)
-        
+
         adapter1.addReference(adapter2, relationship='alpha')
         adapter3.addReference(adapter1, relationship='beta')
-       
+
         self.assertEquals([doc2], adapter1.getRefs())
         self.assertEquals([doc3], adapter1.getBRefs())
 
@@ -54,7 +54,7 @@ class ReferenceableTests(unittest.TestCase):
         self.assertEquals('beta', references[0].relationship)
 
         self.assertEquals(IUUID(doc1), adapter1.UID())
-        self.assertIn('lookupObject?uuid', adapter1.reference_url())
+        self.assertTrue('lookupObject?uuid' in adapter1.reference_url())
         self.assertTrue(adapter1.hasRelationshipTo(adapter2))
         self.assertFalse(adapter1.hasRelationshipTo(adapter3))
 
@@ -62,7 +62,7 @@ class ReferenceableTests(unittest.TestCase):
         # self.assertEquals('x', adapter1.addReference())
 
         self.assertEquals(['alpha'], adapter1.getRelationships())
-        
+
         adapter1.deleteReference(adapter2)
         self.assertFalse(adapter1.hasRelationshipTo(adapter2))
 

@@ -4,7 +4,8 @@ Changelog
 0.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix tests so they run on jenkins 4.3 - ecosystem
+  [maartenkling]
 
 
 0.7.0 (2014-05-21)
