@@ -1,9 +1,11 @@
+from Products.Archetypes.interfaces import IReferenceable
+from Products.Archetypes.interfaces import referenceable
+from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
+from plone.app.textfield import RichTextValue
+from plone.uuid.interfaces import IUUID
+from zope.lifecycleevent import modified
 import unittest
 
-from Products.Archetypes.interfaces import referenceable
-from plone.uuid.interfaces import IUUID
-
-from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
 
 class ReferenceableTests(unittest.TestCase):
 
@@ -21,6 +23,38 @@ class ReferenceableTests(unittest.TestCase):
         old_doc_uuid = IUUID(doc)
         self.portal.manage_renameObject(id='doc1', new_id='new_name')
         self.assertEquals(old_doc_uuid, IUUID(self.portal['new_name']))
+
+    def test_rename_updates_ref_catalog(self):
+        doc1 = self.portal['doc1']
+        doc2 = self.portal['doc2']
+        ref_catalog = self.portal.reference_catalog
+        doc1.text = RichTextValue('<a href="doc2">doc2</a>')
+        modified(doc1)
+        self.assertEquals(1, len(ref_catalog()))
+
+        self.assertEquals([doc2], IReferenceable(doc1).getReferences())
+        ref_brain = ref_catalog()[0]
+        self.assertTrue(ref_brain.getPath().startswith('doc1'))
+        self.portal.manage_renameObject(id='doc1', new_id='new_name')
+        modified(doc1)
+        self.assertEquals(1, len(ref_catalog()))
+        ref_brain = ref_catalog()[0]
+        self.assertTrue(ref_brain.getPath().startswith('new_name'))
+        self.assertEquals([doc2], IReferenceable(doc1).getReferences())
+
+    def test_remove_cleans_ref_catalog(self):
+        doc1 = self.portal['doc1']
+        doc1.text = RichTextValue('<a href="doc1">doc1</a>')
+        modified(doc1)
+        ref_catalog = self.portal.reference_catalog
+        self.assertEquals(1, len(ref_catalog()))
+
+        self.portal.manage_delObjects(['doc1'])
+        self.assertEquals(0, len(ref_catalog()))
+
+
+
+
 
     def test_referenceable_api(self):
         doc1 = self.portal['doc1']
