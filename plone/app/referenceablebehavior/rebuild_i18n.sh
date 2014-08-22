@@ -10,7 +10,7 @@ for po in locales/*/LC_MESSAGES/${I18NDOMAIN}.po; do
     i18ndude sync --pot locales/${I18NDOMAIN}.pot $po
 done
 
-# Manually recompile a po file: 
+# Manually recompile a po file:
 #     msgfmt -o domain.mo domain.po
 # End all po files:
 #    for po in $(find . -path '*/LC_MESSAGES/*.po'); do

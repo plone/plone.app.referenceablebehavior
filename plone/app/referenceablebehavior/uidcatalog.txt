@@ -59,7 +59,7 @@ If we move the object, the catalog gets updated
 
     >>> results[0].getPath()
     '/plone/referenceable_type'
-    
+
     >>> browser.getLink("Cut").click()
 
     >>> browser.open("http://nohost/plone")

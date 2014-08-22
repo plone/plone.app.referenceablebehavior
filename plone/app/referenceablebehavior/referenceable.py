@@ -43,18 +43,18 @@ class ATReferenceable(object):
     """Adapts Dexterity items using this package's referenceable behavior
     to Archetypes' IReferenceable interface.
     """
-    
+
     adapts(IReferenceable)
     implements(referenceable.IReferenceable)
-    
+
     def __init__(self, context):
         self.context = context
         self.tool = getToolByName(context, 'reference_catalog')
         self.uid_catalog = getToolByName(context, 'uid_catalog')
         self.portal = getToolByName(context, 'portal_url').getPortalObject()
-    
+
     isReferenceable = 1
-    
+
     def reference_url(self):
         # like absoluteURL, but return a link to the object with this UID"""
         return self.tool.reference_url(self)
@@ -131,7 +131,7 @@ class ATReferenceable(object):
             obj = traverse(path, default=None)
             if obj is not None:
                 return obj
-    
+
     def _getReferenceAnnotations(self):
         # given an object, extract the bag of references for which it is the
         # source
