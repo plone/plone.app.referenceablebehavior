@@ -9,11 +9,11 @@ def test_suite():
     return unittest.TestSuite([
 
         ztc.FunctionalDocFileSuite(
-            'referenceable.txt', package='plone.app.referenceablebehavior',
+            'referenceable.rst', package='plone.app.referenceablebehavior',
             test_class=ReferenceableFunctionalTestCase),
 
         ztc.FunctionalDocFileSuite(
-            'uidcatalog.txt', package='plone.app.referenceablebehavior',
+            'uidcatalog.rst', package='plone.app.referenceablebehavior',
             test_class=ReferenceableFunctionalTestCase),
 
         ])
