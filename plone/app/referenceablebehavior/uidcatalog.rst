@@ -1,23 +1,27 @@
 Indexation in UIDCatalog
 ========================
 
+Test Setup::
+
+    >>> app = layer['app']
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
+    >>> browser.addHeader('Authorization', 'Basic admin:secret')
+    >>> portal = layer['portal']
+    >>> portal_url = 'http://nohost/plone'
+
 So first lets create a new dexterity content type
 
     >>> from plone.dexterity.fti import DexterityFTI
     >>> fti = DexterityFTI('referenceable_type')
     >>> fti.behaviors = ('plone.app.dexterity.behaviors.metadata.IDublinCore',
     ...                  'plone.app.referenceablebehavior.referenceable.IReferenceable')
-    >>> self.portal.portal_types._setObject('referenceable_type', fti)
+    >>> portal.portal_types._setObject('referenceable_type', fti)
     'referenceable_type'
     >>> schema = fti.lookupSchema()
-
-If we access the site as an admin TTW::
-
-    >>> from Products.Five.testbrowser import Browser
-    >>> browser = Browser()
-    >>> browser.handleErrors = False
-    >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
-    >>> browser.addHeader('Authorization', 'Basic root:secret')
+    >>> import transaction
+    >>> transaction.commit()
 
 We can see this type in the addable types at the root of the site::
 
@@ -36,7 +40,7 @@ First check it is indexed in the uid_catalog
 
     >>> from plone.uuid.interfaces import IUUID
     >>> uuid = IUUID(portal.referenceable_type)
-    >>> uid_catalog = self.portal.uid_catalog
+    >>> uid_catalog = portal.uid_catalog
     >>> results = uid_catalog(UID=uuid)
     >>> len(results)
     1

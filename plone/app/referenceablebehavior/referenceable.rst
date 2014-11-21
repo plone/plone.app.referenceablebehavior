@@ -3,25 +3,29 @@ Referenceable behavior
 
 Archetypes base classes are Referenceable. To be able to link
 dexterity content types from archetypes content types you need
-to activate that behavior
+to activate that behavior.
 
-So first lets create a new dexterity content type
+Test Setup::
+
+    >>> app = layer['app']
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> browser.handleErrors = False
+    >>> browser.addHeader('Authorization', 'Basic admin:secret')
+    >>> portal = layer['portal']
+    >>> portal_url = 'http://nohost/plone'
+
+So first lets create a new dexterity content type::
 
     >>> from plone.dexterity.fti import DexterityFTI
     >>> fti = DexterityFTI('referenceable_type')
     >>> fti.behaviors = ('plone.app.dexterity.behaviors.metadata.IDublinCore',
     ...                  'plone.app.referenceablebehavior.referenceable.IReferenceable')
-    >>> self.portal.portal_types._setObject('referenceable_type', fti)
+    >>> portal.portal_types._setObject('referenceable_type', fti)
     'referenceable_type'
     >>> schema = fti.lookupSchema()
-
-If we access the site as an admin TTW::
-
-    >>> from Products.Five.testbrowser import Browser
-    >>> browser = Browser()
-    >>> browser.handleErrors = False
-    >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
-    >>> browser.addHeader('Authorization', 'Basic root:secret')
+    >>> import transaction
+    >>> transaction.commit()
 
 We can see this type in the addable types at the root of the site::
 
@@ -38,7 +42,7 @@ We can see this type in the addable types at the root of the site::
 
 Now lets check that we have uuid stuff
 
-    >>> item = self.portal.referenceable_type
+    >>> item = portal.referenceable_type
     >>> from plone.app.referenceablebehavior.referenceable import IReferenceable
     >>> IReferenceable.providedBy(item)
     True
@@ -69,6 +73,8 @@ It seems there is no way to use related items with functionnal tests
     >>> archetypes.reindexObject()
     >>> archetypes.getRelatedItems()
     [<Item at /plone/referenceable_type>]
+    >>> import transaction
+    >>> transaction.commit()
 
 A dexterity could be adapted to Archetypes IReferenceable
 
@@ -98,8 +104,7 @@ Now create another dexterity referenceable object
     >>> dexterity1 = getattr(portal,'referenceable_type-1')
     >>> referenceable_dexterity1 = referenceable.IReferenceable(dexterity1)
 
-
-    >>> reference_catalog = self.portal.reference_catalog
+    >>> reference_catalog = portal.reference_catalog
     >>> 'relatesTo' in [b.relationship for b in reference_catalog()]
     True
     >>> 'isReferencing' in [b.relationship for b in reference_catalog()]

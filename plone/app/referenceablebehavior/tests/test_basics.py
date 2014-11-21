@@ -1,18 +1,36 @@
 from Products.Archetypes.interfaces import IReferenceable
 from Products.Archetypes.interfaces import referenceable
-from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
+from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_INTEGRATION_TESTING
+from plone.dexterity.fti import DexterityFTI
+from plone.app.testing import TEST_USER_ID, setRoles
 from plone.app.textfield import RichTextValue
 from plone.uuid.interfaces import IUUID
 from zope.lifecycleevent import modified
+from zope.interface import alsoProvides
 import unittest
 
 
 class ReferenceableTests(unittest.TestCase):
 
-    layer = PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
+    layer = PLONE_APP_REFERENCEABLE_INTEGRATION_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.request = self.layer['request']
+        self.portal_url = self.portal.absolute_url()
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        fti = DexterityFTI('referenceabledocument')
+        self.portal.portal_types._setObject('referenceabledocument', fti)
+        fti.klass = 'plone.dexterity.content.Item'
+        fti.behaviors = (
+            'plone.app.referenceablebehavior.referenceable.IReferenceable'
+        )
+        self.fti = fti
+        from plone.app.referenceablebehavior.interfaces import IReferenceable
+        alsoProvides(self.request, IReferenceable)
+        self.portal.invokeFactory('referenceabledocument', 'doc1')
+        self.portal.invokeFactory('referenceabledocument', 'doc2')
+        self.portal.invokeFactory('referenceabledocument', 'doc3')
 
     def test_has_uuid(self):
         doc = self.portal['doc1']
@@ -30,6 +48,7 @@ class ReferenceableTests(unittest.TestCase):
         ref_catalog = self.portal.reference_catalog
         doc1.text = RichTextValue('<a href="doc2">doc2</a>')
         modified(doc1)
+        doc1.reindexObject()
         self.assertEquals(1, len(ref_catalog()))
 
         self.assertEquals([doc2], IReferenceable(doc1).getReferences())
@@ -51,10 +70,6 @@ class ReferenceableTests(unittest.TestCase):
 
         self.portal.manage_delObjects(['doc1'])
         self.assertEquals(0, len(ref_catalog()))
-
-
-
-
 
     def test_referenceable_api(self):
         doc1 = self.portal['doc1']

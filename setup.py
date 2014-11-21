@@ -34,9 +34,11 @@ setup(name='plone.app.referenceablebehavior',
           # -*- Extra requirements: -*-
       ],
       extras_require={
-        'test': ['Plone',
-                 'plone.app.testing',
-                 'plone.app.dexterity'],
+          'test': [
+              'Plone',
+              'plone.app.testing',
+              'plone.app.dexterity'
+          ],
       },
       entry_points="""
       # -*- Entry points: -*-
