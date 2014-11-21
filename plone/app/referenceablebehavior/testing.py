@@ -1,9 +1,12 @@
 from Products.CMFCore.utils import getToolByName
-from plone.app.testing import layers
-from plone.app.testing import applyProfile
-from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import PLONE_FIXTURE
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_MIGRATION_FIXTURE
+from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import applyProfile
+from plone.app.testing import layers
+from plone.app.testing import setRoles
+from plone.dexterity.fti import DexterityFTI
 from zope.configuration import xmlconfig
 
 
@@ -32,6 +35,18 @@ class ReferenceableBehaviorLayer(PloneSandboxLayer):
         #portal.invokeFactory('Document', 'doc1')
         #portal.invokeFactory('Document', 'doc2')
         #portal.invokeFactory('Document', 'doc3')
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+        fti = DexterityFTI('referenceabledocument')
+        portal.portal_types._setObject('referenceabledocument', fti)
+        fti.klass = 'plone.dexterity.content.Item'
+        fti.behaviors = (
+            'plone.app.referenceablebehavior.referenceable.IReferenceable',
+        )
+
+        portal.invokeFactory('referenceabledocument', 'doc1')
+        portal.invokeFactory('referenceabledocument', 'doc2')
+        portal.invokeFactory('referenceabledocument', 'doc3')
+
 
 PLONE_APP_REFERENCEABLE_FIXTURE = ReferenceableBehaviorLayer()
 PLONE_APP_REFERENCEABLE_INTEGRATION_TESTING = layers.IntegrationTesting(

@@ -18,19 +18,19 @@ class ReferenceableTests(unittest.TestCase):
         self.portal = self.layer['portal']
         self.request = self.layer['request']
         self.portal_url = self.portal.absolute_url()
-        setRoles(self.portal, TEST_USER_ID, ['Manager'])
-        fti = DexterityFTI('referenceabledocument')
-        self.portal.portal_types._setObject('referenceabledocument', fti)
-        fti.klass = 'plone.dexterity.content.Item'
-        fti.behaviors = (
-            'plone.app.referenceablebehavior.referenceable.IReferenceable',
-        )
-        self.fti = fti
+        #setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        #fti = DexterityFTI('referenceabledocument')
+        #self.portal.portal_types._setObject('referenceabledocument', fti)
+        #fti.klass = 'plone.dexterity.content.Item'
+        #fti.behaviors = (
+        #    'plone.app.referenceablebehavior.referenceable.IReferenceable',
+        #)
+        #self.fti = fti
         from plone.app.referenceablebehavior.interfaces import IReferenceable
         alsoProvides(self.request, IReferenceable)
-        self.portal.invokeFactory('referenceabledocument', 'doc1')
-        self.portal.invokeFactory('referenceabledocument', 'doc2')
-        self.portal.invokeFactory('referenceabledocument', 'doc3')
+        #self.portal.invokeFactory('referenceabledocument', 'doc1')
+        #self.portal.invokeFactory('referenceabledocument', 'doc2')
+        #self.portal.invokeFactory('referenceabledocument', 'doc3')
 
     def test_has_uuid(self):
         doc = self.portal['doc1']
