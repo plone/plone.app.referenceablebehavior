@@ -23,7 +23,7 @@ class ReferenceableTests(unittest.TestCase):
         self.portal.portal_types._setObject('referenceabledocument', fti)
         fti.klass = 'plone.dexterity.content.Item'
         fti.behaviors = (
-            'plone.app.referenceablebehavior.referenceable.IReferenceable'
+            'plone.app.referenceablebehavior.referenceable.IReferenceable',
         )
         self.fti = fti
         from plone.app.referenceablebehavior.interfaces import IReferenceable
