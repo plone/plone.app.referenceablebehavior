@@ -34,7 +34,7 @@ setup(name='plone.app.referenceablebehavior',
           # -*- Extra requirements: -*-
       ],
       extras_require={
-        'test': ['Plone',
+        'test': ['Products.CMFPlone',
                  'plone.app.testing',
                  'plone.app.dexterity'],
       },
