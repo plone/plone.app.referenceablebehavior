@@ -52,10 +52,6 @@ class ReferenceableTests(unittest.TestCase):
         self.portal.manage_delObjects(['doc1'])
         self.assertEquals(0, len(ref_catalog()))
 
-
-
-
-
     def test_referenceable_api(self):
         doc1 = self.portal['doc1']
         doc2 = self.portal['doc2']
