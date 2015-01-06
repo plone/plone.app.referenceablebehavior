@@ -1,22 +1,22 @@
 import unittest
+import doctest
+from plone.testing import layered
 
-from Testing import ZopeTestCase as ztc
+from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_FUNCTION_TESTING
 
-from plone.app.referenceablebehavior.tests.base import ReferenceableFunctionalTestCase
+OPTIONFLAGS = (doctest.ELLIPSIS |
+               doctest.NORMALIZE_WHITESPACE #|
+              # doctest.REPORT_ONLY_FIRST_FAILURE
+               )
 
+DOCTEST_FILES = ['referenceable.rst', 'uidcatalog.rst']
 
 def test_suite():
-    return unittest.TestSuite([
-
-        ztc.FunctionalDocFileSuite(
-            'referenceable.rst', package='plone.app.referenceablebehavior',
-            test_class=ReferenceableFunctionalTestCase),
-
-        ztc.FunctionalDocFileSuite(
-            'uidcatalog.rst', package='plone.app.referenceablebehavior',
-            test_class=ReferenceableFunctionalTestCase),
-
-        ])
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
+   suite = unittest.TestSuite()
+   for testfile in DOCTEST_FILES:
+        suite.addTest(layered(
+            doctest.DocFileSuite(testfile,
+                                 optionflags=OPTIONFLAGS,
+                                 package="plone.app.referenceablebehavior",),
+            layer=PLONE_APP_REFERENCEABLE_FUNCTION_TESTING))
+   return suite

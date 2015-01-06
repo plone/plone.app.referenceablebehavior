@@ -11,17 +11,20 @@ So first lets create a new dexterity content type
     >>> fti = DexterityFTI('referenceable_type')
     >>> fti.behaviors = ('plone.app.dexterity.behaviors.metadata.IDublinCore',
     ...                  'plone.app.referenceablebehavior.referenceable.IReferenceable')
-    >>> self.portal.portal_types._setObject('referenceable_type', fti)
+    >>> portal = layer['portal']
+    >>> app = layer['app']
+    >>> portal.portal_types._setObject('referenceable_type', fti)
     'referenceable_type'
     >>> schema = fti.lookupSchema()
+    >>> from transaction import commit
+    >>> commit()
 
 If we access the site as an admin TTW::
 
-    >>> from Products.Five.testbrowser import Browser
-    >>> browser = Browser()
-    >>> browser.handleErrors = False
-    >>> self.app.acl_users.userFolderAddUser('root', 'secret', ['Manager'], [])
-    >>> browser.addHeader('Authorization', 'Basic root:secret')
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(app)
+    >>> from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
+    >>> browser.addHeader('Authorization', 'Basic %s:%s' % (SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
 
 We can see this type in the addable types at the root of the site::
 
@@ -38,7 +41,7 @@ We can see this type in the addable types at the root of the site::
 
 Now lets check that we have uuid stuff
 
-    >>> item = self.portal.referenceable_type
+    >>> item = portal.referenceable_type
     >>> from plone.app.referenceablebehavior.referenceable import IReferenceable
     >>> IReferenceable.providedBy(item)
     True
@@ -50,15 +53,18 @@ Now lets check that we have uuid stuff
     >>> uuid is not None
     True
 
-Now create an archetype content object
+Now create an archetype content object.
 
-    >>> browser.open("http://nohost/plone/createObject?type_name=Document")
-    >>> browser.getControl('Title').value= "archetype page"
-    >>> browser.getControl('Save').click()
+    >>> from plone.app.testing import setRoles
+    >>> from plone.app.testing import TEST_USER_ID
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> _ = portal.invokeFactory('ATRefnode', "archetype-page",
+    ...                          title="archetype page")
+    >>> commit()
 
 Now add the dexterity content as reference in archetype page
 
-It seems there is no way to use related items with functionnal tests
+It seems there is no way to use related items with functional tests
 ###    >>> browser.getLink('Edit').click()
 
     >>> archetypes = getattr(portal,'archetype-page')
@@ -69,6 +75,7 @@ It seems there is no way to use related items with functionnal tests
     >>> archetypes.reindexObject()
     >>> archetypes.getRelatedItems()
     [<Item at /plone/referenceable_type>]
+    >>> commit()
 
 A dexterity could be adapted to Archetypes IReferenceable
 
@@ -99,7 +106,8 @@ Now create another dexterity referenceable object
     >>> referenceable_dexterity1 = referenceable.IReferenceable(dexterity1)
 
 
-    >>> reference_catalog = self.portal.reference_catalog
+    >>> reference_catalog = portal.reference_catalog
+
     >>> 'relatesTo' in [b.relationship for b in reference_catalog()]
     True
     >>> 'isReferencing' in [b.relationship for b in reference_catalog()]
@@ -120,7 +128,7 @@ We can get back references from dexterity content
     >>> referenceable_dexterity1.getBRelationships()
     ['isReferencing']
     >>> referenceable_dexterity1.getBRefs()
-    [<ATDocument at /plone/archetype-page>]
+    [<ATRefnode at /plone/archetype-page>]
 
 We can add references between archetypes and dexterity content
 
@@ -138,7 +146,7 @@ We can add references between archetypes and dexterity content
     >>> referenceable_dexterity1.getRelationships()
     ['isReferencing']
     >>> referenceable_dexterity1.getRefs()
-    [<ATDocument at /plone/archetype-page>]
+    [<ATRefnode at /plone/archetype-page>]
     >>> referenceable_dexterity1.getReferenceImpl()
     [<Reference ... rel:isReferencing>]
     >>> referenceable_dexterity1.getBackReferenceImpl()
@@ -163,7 +171,7 @@ We can add references between dexterity objects
     >>> referenceable_dexterity1.getRelationships()
     ['isReferencing']
     >>> referenceable_dexterity1.getRefs()
-    [<ATDocument at /plone/archetype-page>, <Item at /plone/referenceable_type>]
+    [<ATRefnode at /plone/archetype-page>, <Item at /plone/referenceable_type>]
 
 We can remove references
 
@@ -173,7 +181,7 @@ We can remove references
     >>> referenceable_dexterity1.getRelationships()
     ['isReferencing']
     >>> referenceable_dexterity1.getRefs()
-    [<ATDocument at /plone/archetype-page>]
+    [<ATRefnode at /plone/archetype-page>]
     >>> referenceable_dexterity1.deleteReferences()
     >>> referenceable_dexterity1.getRelationships()
     []

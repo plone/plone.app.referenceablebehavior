@@ -35,6 +35,7 @@ setup(name='plone.app.referenceablebehavior',
       ],
       extras_require={
         'test': ['Products.CMFPlone',
+                 'Products.Archetypes',
                  'plone.app.testing',
                  'plone.app.dexterity'],
       },
