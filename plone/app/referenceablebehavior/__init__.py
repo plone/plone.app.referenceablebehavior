@@ -1,12 +1,12 @@
+import os
 import zope.i18nmessageid
 MessageFactory = zope.i18nmessageid.MessageFactory("plone.app.referenceablebehavior")
 
 PKG_NAME = "plone.app.referenceablebehavior"
-REGISTER_DEMO_TYPES = True
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product."""
-    if REGISTER_DEMO_TYPES:
+    if 'ZOPETESTCASE' in os.environ:   # register demo type only when testing
         from Products.CMFCore import utils
         from Products.CMFCore import permissions
         from Products.Archetypes.ArchetypeTool import process_types, listTypes

@@ -1,4 +1,8 @@
+from Products.Archetypes.atapi import (
+        BaseSchema, ReferenceField, Schema, ReferenceWidget, BaseContent,
+        registerType)
 from Products.CMFCore.utils import getToolByName
+from Products.CMFCore.permissions import ModifyPortalContent
 from plone.app.testing import layers
 
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
@@ -52,30 +56,28 @@ PLONE_APP_REFERENCEABLE_FUNCTION_TESTING = layers.FunctionalTesting(
     name="plone.app.referenceable:Functional"
 )
 
-from Products.Archetypes.atapi import BaseSchema, ReferenceField, Schema, ReferenceWidget, BaseContent, registerType
-from Products.CMFCore.permissions import ModifyPortalContent
-
-schema = BaseSchema.copy() + Schema((
-    ReferenceField('relatedItems',
-        relationship='relatesTo',
-        multiValued=True,
-        isMetadata=True,
-        languageIndependent=False,
-        index='KeywordIndex',
-        referencesSortable=True,
-        keepReferencesOnCopy=True,
-        write_permission=ModifyPortalContent,
-        widget=ReferenceWidget(
-            label=u'label_related_items',
-            description='',
-            visible={'edit': 'visible', 'view': 'invisible'}
-            )
-        )
-    ))
 
 class ATRefnode(BaseContent):
     """A simple archetype for testing references. It can point to itself"""
 
-    schema = schema
+    schema = BaseSchema.copy() + Schema((
+        ReferenceField('relatedItems',
+            relationship='relatesTo',
+            multiValued=True,
+            isMetadata=True,
+            languageIndependent=False,
+            index='KeywordIndex',
+            referencesSortable=True,
+            keepReferencesOnCopy=True,
+            write_permission=ModifyPortalContent,
+            widget=ReferenceWidget(
+                label=u'label_related_items',
+                description='',
+                visible={'edit': 'visible', 'view': 'invisible'}
+                )
+           ),   # make it a list
+        )
+    )
+
 
 registerType(ATRefnode, 'plone.app.referenceablebehavior')

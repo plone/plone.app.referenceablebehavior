@@ -75,6 +75,7 @@ It seems there is no way to use related items with functional tests
     >>> archetypes.reindexObject()
     >>> archetypes.getRelatedItems()
     [<Item at /plone/referenceable_type>]
+    >>> commit()
 
 A dexterity could be adapted to Archetypes IReferenceable
 
