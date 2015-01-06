@@ -7,6 +7,8 @@ Changelog
 - Fix tests so they run on jenkins 4.3 - ecosystem
   [maartenkling]
 
+- Ported to plone.app.testing
+  [tomgross]
 
 0.7.0 (2014-05-21)
 ------------------
