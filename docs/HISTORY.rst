@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.1 (unreleased)
+0.7.1 (2015-03-12)
 ------------------
 
 - Fix tests so they run on jenkins 4.3 - ecosystem
