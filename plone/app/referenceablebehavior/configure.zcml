@@ -17,7 +17,6 @@
         title="Referenceable"
         description="Adds the ability to be referenced by others content elements"
         provides=".referenceable.IReferenceable"
-        for="plone.dexterity.interfaces.IDexterityContent"
         />
 
     <!-- Install uid_catalog related components -->
