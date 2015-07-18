@@ -4,7 +4,8 @@ Changelog
 0.7.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove superfluous 'for'.
+  [fulv]
 
 
 0.7.1 (2015-03-12)
