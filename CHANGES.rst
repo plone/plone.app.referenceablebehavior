@@ -4,6 +4,9 @@ Changelog
 0.7.2 (unreleased)
 ------------------
 
+- Move docs/HISTORY.txt -> CHANGES.rst.
+  [timo]
+
 - Remove superfluous 'for'.
   [fulv]
 
