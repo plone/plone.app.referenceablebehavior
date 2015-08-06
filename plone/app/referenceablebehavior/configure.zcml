@@ -14,8 +14,8 @@
     <include file="profiles.zcml" />
 
     <plone:behavior
-        title="Referenceable"
-        description="Adds the ability to be referenced by others content elements"
+        title="Referenceable by Archetypes"
+        description="Adds the ability to be referenced by Archetypes items"
         provides=".referenceable.IReferenceable"
         />
 
