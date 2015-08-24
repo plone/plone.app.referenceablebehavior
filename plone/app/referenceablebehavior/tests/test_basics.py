@@ -24,6 +24,7 @@ class ReferenceableTests(unittest.TestCase):
         self.portal.manage_renameObject(id='doc1', new_id='new_name')
         self.assertEquals(old_doc_uuid, IUUID(self.portal['new_name']))
 
+    @unittest.skip('Needs Refactor. Linkintegrity does not use ref_catalog')
     def test_rename_updates_ref_catalog(self):
         doc1 = self.portal['doc1']
         doc2 = self.portal['doc2']
@@ -42,6 +43,7 @@ class ReferenceableTests(unittest.TestCase):
         self.assertTrue(ref_brain.getPath().startswith('new_name'))
         self.assertEquals([doc2], IReferenceable(doc1).getReferences())
 
+    @unittest.skip('Needs Refactor. Linkintegrity does not use ref_catalog')
     def test_remove_cleans_ref_catalog(self):
         doc1 = self.portal['doc1']
         doc1.text = RichTextValue('<a href="doc1">doc1</a>')
