@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.3 (unreleased)
+0.7.3 (2015-09-07)
 ------------------
 
 - Linkintegrity no longer uses the reference_catalog. Skip tests that assume
