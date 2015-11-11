@@ -10,7 +10,8 @@ New:
 
 Fixes:
 
-- *add item here*
+- Moved translations to plone.app.locales
+  [claytonc]
 
 
 0.7.3 (2015-09-07)
