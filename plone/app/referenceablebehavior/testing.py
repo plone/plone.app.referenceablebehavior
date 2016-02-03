@@ -7,6 +7,8 @@ from plone.app.testing import layers
 
 from plone.app.contenttypes.testing import PLONE_APP_CONTENTTYPES_FIXTURE
 from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
 from plone.testing import z2
 from Products.GenericSetup import EXTENSION, profile_registry
 
@@ -41,7 +43,7 @@ class ReferenceableBehaviorLayer(PloneSandboxLayer):
         ttool.getTypeInfo('Document').behaviors += (
             'plone.app.referenceablebehavior.referenceable.IReferenceable',
         )
-
+        setRoles(portal, TEST_USER_ID, ['Manager'])
         portal.invokeFactory('Document', 'doc1')
         portal.invokeFactory('Document', 'doc2')
         portal.invokeFactory('Document', 'doc3')
