@@ -170,8 +170,13 @@ We can add references between dexterity objects
     True
     >>> referenceable_dexterity1.getRelationships()
     ['isReferencing']
-    >>> referenceable_dexterity1.getRefs()
-    [<ATRefnode at /plone/archetype-page>, <Item at /plone/referenceable_type>]
+    >>> refs = [i.getId() for i in referenceable_dexterity1.getRefs()]
+    >>> 'archetype-page' in refs
+    True
+    >>> 'referenceable_type' in refs
+    True
+    >>> len(refs)
+    2
 
 We can remove references
 
