@@ -30,6 +30,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'plone.app.locales >= 4.3.9',
         'plone.behavior',
         'plone.dexterity >= 1.1',
         'plone.indexer',

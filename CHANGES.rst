@@ -10,7 +10,8 @@ New:
 
 Fixes:
 
-- Moved translations to plone.app.locales
+- Moved translations to plone.app.locales.
+  Requires plone.app.locales 4.3.9 or higher.
   [claytonc]
 
 
