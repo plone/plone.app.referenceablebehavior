@@ -4,10 +4,6 @@ Changelog
 0.7.4 (unreleased)
 ------------------
 
-New:
-
-- *add item here*
-
 Fixes:
 
 - Moved translations to plone.app.locales.
