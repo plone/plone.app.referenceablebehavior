@@ -1,6 +1,6 @@
 from Acquisition import aq_base
 from zope.component import adapts, adapter
-from zope.interface import implements, directlyProvides
+from zope.interface import implementer, directlyProvides
 from plone.uuid.interfaces import IAttributeUUID, IUUID
 from Products.Archetypes import config
 from Products.Archetypes.interfaces import referenceable
@@ -39,13 +39,13 @@ class Reference(BaseReference):
         rc.catalog_object(self, url)
 
 
+@implementer(referenceable.IReferenceable)
 class ATReferenceable(object):
     """Adapts Dexterity items using this package's referenceable behavior
     to Archetypes' IReferenceable interface.
     """
 
     adapts(IReferenceable)
-    implements(referenceable.IReferenceable)
 
     def __init__(self, context):
         self.context = context
