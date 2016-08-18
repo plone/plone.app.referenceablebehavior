@@ -1,6 +1,22 @@
 Changelog
 =========
 
+0.7.6 (unreleased)
+------------------
+
+Breaking changes:
+
+- *add item here*
+
+New features:
+
+- *add item here*
+
+Bug fixes:
+
+- *add item here*
+
+
 0.7.5 (2016-08-18)
 ------------------
 
