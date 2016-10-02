@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.Archetypes.interfaces import IReferenceable
 from Products.Archetypes.interfaces import referenceable
 from plone.app.referenceablebehavior.testing import PLONE_APP_REFERENCEABLE_FUNCTION_TESTING

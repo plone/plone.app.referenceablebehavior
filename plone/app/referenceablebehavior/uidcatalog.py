@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.Archetypes import config
 from Products.Archetypes.interfaces import IReferenceable as IATReferenceable
 from Products.Archetypes.interfaces.referenceengine import IUIDCatalog
