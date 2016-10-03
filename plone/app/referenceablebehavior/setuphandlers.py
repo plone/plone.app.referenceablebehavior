@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.Archetypes.setuphandlers import install_uidcatalog
 from Products.Archetypes.setuphandlers import install_referenceCatalog
 

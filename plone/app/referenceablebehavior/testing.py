@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Products.Archetypes.atapi import (
         BaseSchema, ReferenceField, Schema, ReferenceWidget, BaseContent,
         registerType)

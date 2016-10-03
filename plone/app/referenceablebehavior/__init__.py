@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import zope.i18nmessageid
 MessageFactory = zope.i18nmessageid.MessageFactory("plone.app.referenceablebehavior")
