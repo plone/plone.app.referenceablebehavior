@@ -4,14 +4,6 @@ Changelog
 0.7.6 (unreleased)
 ------------------
 
-Breaking changes:
-
-- *add item here*
-
-New features:
-
-- *add item here*
-
 Bug fixes:
 
 - Add coding header on python files.
