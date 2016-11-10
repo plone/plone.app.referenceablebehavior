@@ -14,7 +14,8 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Do not load ``plone.app.referenceablebehavior.testing`` on package registration as it adds a broken dependency to plone.app.testing.
+  [hvelarde]
 
 
 0.7.6 (2016-11-09)

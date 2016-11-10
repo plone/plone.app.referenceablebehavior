@@ -11,7 +11,6 @@ def initialize(context):
         from Products.CMFCore import utils
         from Products.CMFCore import permissions
         from Products.Archetypes.ArchetypeTool import process_types, listTypes
-        import plone.app.referenceablebehavior.testing
 
         content_types, constructors, ftis = process_types(
             listTypes(PKG_NAME), PKG_NAME)
