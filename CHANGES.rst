@@ -17,6 +17,9 @@ Bug fixes:
 - Do not load ``plone.app.referenceablebehavior.testing`` on package registration as it adds a broken dependency to plone.app.testing.
   [hvelarde]
 
+- Make tests pass with ZCatalog 4
+  [pbauer]
+
 
 0.7.6 (2016-11-09)
 ------------------

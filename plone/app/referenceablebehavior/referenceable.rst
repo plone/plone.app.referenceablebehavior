@@ -105,12 +105,23 @@ Now create another dexterity referenceable object
     >>> dexterity1 = getattr(portal,'referenceable_type-1')
     >>> referenceable_dexterity1 = referenceable.IReferenceable(dexterity1)
 
+    >>> def catalog_get_all(catalog, unique_idx='UID'):
+    ...     """Get all brains from the catalog.
+    ...     """
+    ...     res = [
+    ...         catalog({
+    ...             unique_idx: catalog._catalog.getIndexDataForRID(it)[unique_idx]
+    ...         })[0]
+    ...         for it in catalog._catalog.data
+    ...     ]
+    ...     return res
+
 
     >>> reference_catalog = portal.reference_catalog
 
-    >>> 'relatesTo' in [b.relationship for b in reference_catalog()]
+    >>> 'relatesTo' in [b.relationship for b in catalog_get_all(reference_catalog)]
     True
-    >>> 'isReferencing' in [b.relationship for b in reference_catalog()]
+    >>> 'isReferencing' in [b.relationship for b in catalog_get_all(reference_catalog)]
     False
 
 We can add references between archetypes and dexterity content
@@ -118,9 +129,9 @@ We can add references between archetypes and dexterity content
     >>> archetypes.addReference(referenceable_dexterity1,
     ...                         'isReferencing')
     <Reference... rel:isReferencing>
-    >>> 'relatesTo' in [b.relationship for b in reference_catalog()]
+    >>> 'relatesTo' in [b.relationship for b in catalog_get_all(reference_catalog)]
     True
-    >>> 'isReferencing' in [b.relationship for b in reference_catalog()]
+    >>> 'isReferencing' in [b.relationship for b in catalog_get_all(reference_catalog)]
     True
 
 We can get back references from dexterity content
