@@ -28,7 +28,7 @@ setup(
     author_email='mailto:dexterity-development@googlegroups.com',
     url='http://plone.org/products/dexterity',
     license='GPL',
-    packages=find_packages(exclude=['ez_setup']),
+    packages=find_packages(),
     namespace_packages=['plone', 'plone.app'],
     include_package_data=True,
     zip_safe=False,
