@@ -10,7 +10,7 @@ setup(
     long_description=(open("README.rst").read() + "\n\n" +
                       open("CHANGES.rst").read()),
     # Get more strings from
-    # https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    # https://pypi.org/classifiers/
     classifiers=[
         "Framework :: Plone",
         "Framework :: Plone :: 4.3",
