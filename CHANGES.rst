@@ -14,7 +14,9 @@ New features:
 
 Bug fixes:
 
-- *add item here*
+- Fix references missing from the reference catalog when an object is
+  moved/renamed.
+  [rpatterson]
 
 
 0.7.7 (2017-02-05)
