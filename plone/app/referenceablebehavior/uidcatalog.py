@@ -77,17 +77,15 @@ def moved_handler(obj, event):
         return
 
     for ref in annotations.objectValues():
-        new_url = getRelURL(ref_catalog, ref.getPhysicalPath())
+        url = getRelURL(ref_catalog, ref.getPhysicalPath())
         if event.oldName and event.newName:
-            old_url = event.oldName + new_url[len(event.newName):]
-        uid_catalog_rid = uid_catalog.getrid(old_url)
-        ref_catalog_rid = ref_catalog.getrid(old_url)
+            url = event.oldName + url[len(event.newName):]
+        uid_catalog_rid = uid_catalog.getrid(url)
+        ref_catalog_rid = ref_catalog.getrid(url)
         if uid_catalog_rid is not None:
-            uid_catalog.uncatalog_object(old_url)
-            uid_catalog.catalog_object(ref, new_url)
+            uid_catalog.uncatalog_object(url)
         if ref_catalog_rid is not None:
-            ref_catalog.uncatalog_object(old_url)
-            ref_catalog.catalog_object(ref, new_url)
+            ref_catalog.uncatalog_object(url)
 
 
 def removed_handler(obj, event):
