@@ -8,7 +8,7 @@ if sys.version_info[0] != 2:
     # Prevent creating or installing a distribution with Python 3.
     raise ValueError("plone.app.referenceablebehavior is based on Archetypes, which is Python 2 only.")
 
-version = '0.7.9'
+version = '0.7.10.dev0'
 
 setup(
     name='plone.app.referenceablebehavior',
